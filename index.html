@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력 예제</title>
+    <style>
+        /* 간단한 스타일 추가 */
+        #calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin: 20px;
+        }
+        .day {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>달력</h1>
+    <div id="calendar"></div>
+
+    <script>
+        function createCalendar(year, month) {
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = ''; // 기존 내용 초기화
+
+            const date = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0).getDate();
+            const firstDayIndex = date.getDay();
+
+            // 빈 칸 추가
+            for (let i = 0; i < firstDayIndex; i++) {
+                const emptyDiv = document.createElement('div');
+                calendar.appendChild(emptyDiv);
+            }
+
+            // 날짜 추가
+            for (let day = 1; day <= lastDay; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day';
+                dayDiv.textContent = day;
+                calendar.appendChild(dayDiv);
+            }
+        }
+
+        // 현재 날짜로 달력 생성
+        const today = new Date();
+        createCalendar(today.getFullYear(), today.getMonth());
+    </script>
+</body>
+</html>
